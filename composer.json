@@ -8,7 +8,7 @@
   "require": {
     "php": ">=8.0.0",
     "psr/container": "^2.0",
-    "illuminate/database": "^9.52",
+    "illuminate/database": "^9.0",
     "topthink/think-template": "^3.0",
     "psr/log": "^3.0"
   },
