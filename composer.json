@@ -2,11 +2,13 @@
   "name": "zhaojiaxuan/ethereal-framework",
   "description": "Ethereal Framework",
   "type": "library",
+  "version": "1.0.0",
   "license": "MIT",
+  "minimum-stability": "dev",
   "require": {
     "php": ">=8.0.0",
     "psr/container": "^2.0",
-    "illuminate/database": "^10.30",
+    "illuminate/database": "^9.52",
     "topthink/think-template": "^3.0",
     "psr/log": "^3.0"
   },

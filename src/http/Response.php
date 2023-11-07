@@ -13,7 +13,7 @@ class Response
 
     public function sendContent() // 发送内容
     {
-        exit($this->content);
+        echo $this->content;
     }
 
     public function sendHeaders() // 发送请求头
@@ -51,6 +51,12 @@ class Response
     public function getContent() // 获取内容
     {
         return $this->content;
+    }
+
+
+    public function getHeaders() // 获取header头
+    {
+        return $this->headers;
     }
 
 

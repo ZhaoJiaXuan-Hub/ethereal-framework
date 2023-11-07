@@ -10,7 +10,7 @@ interface RequestInterface
      * @param $method
      * @param $headers
      */
-    public function __construct($uri,$method,$headers);
+    public function __construct($uri, $method, $headers);
 
     /**
      * 创建Request对象
@@ -19,7 +19,7 @@ interface RequestInterface
      * @param $headers
      * @return mixed
      */
-    public static function create($uri,$method,$headers);
+    public static function create($uri, $method, $headers);
 
     /**
      * 获取请求url

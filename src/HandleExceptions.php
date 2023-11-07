@@ -1,4 +1,5 @@
 <?php
+
 namespace Ethereal;
 
 use Throwable;
@@ -26,26 +27,27 @@ class HandleExceptions
 
 
         if (!$this->isIgnore($e)) { // 不忽略 记录异常到日志去
-            app('response')->setContent(['code'=>500,'message'=>$e->getMessage(),'data'=>['file'=>$e->getFile(),'line'=>$e->getLine()]])->setCode(500)->send();
+            app('response')->setContent(['code' => 500, 'message' => $e->getMessage(), 'data' => ['file' => $e->getFile(), 'line' => $e->getLine()]])->setCode(500)->send();
             app('log')->debug(
                 $e->getMessage() . ' at ' . $e->getFile() . ':' . $e->getLine()
             );
         }
     }
 
-    public function handleError($errno, $error_message, $errfile, $errline) {
-        app('response')->setContent(['code'=>500,'message'=>$error_message,'data'=>['file'=>$errfile,'line'=>$errline]])->setCode(500)->send();
+    public function handleError($errno, $error_message, $errfile, $errline)
+    {
+        app('response')->setContent(['code' => 500, 'message' => $error_message, 'data' => ['file' => $errfile, 'line' => $errline]])->setCode(500)->send();
 
         // 记录到日志
         app('log')->error(
-            $error_message.' at '.$errfile.':'.$errline
+            $error_message . ' at ' . $errfile . ':' . $errline
         );
     }
 
     protected function isIgnore(Throwable $e)
     {
         foreach ($this->ignore as $item)
-            if( $item ==  get_class($e))
+            if ($item == get_class($e))
                 return true;
         return false;
     }

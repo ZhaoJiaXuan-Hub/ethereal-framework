@@ -1,4 +1,5 @@
 <?php
+
 namespace Ethereal\log\driver;
 
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;

@@ -2,7 +2,7 @@
 
 namespace Ethereal;
 
-use Ethereal\http\Resquest;
+use Ethereal\http\Request;
 
 class Route
 {
@@ -111,7 +111,7 @@ class Route
         return false;
     }
 
-    public function dispatch(Resquest $request)
+    public function dispatch(Request $request)
     {
 
         $method = $request->getMethod();
@@ -119,7 +119,7 @@ class Route
         $this->route_index = $method . $uri;
         $route = $this->getCurrRoute();
         if (!$route)
-            return response(404, ['code' => 100, 'message' => "访问页面不存在"]);
+            return response( ['code' => 404, 'message' => "访问页面不存在"],404);
 
         $middleware = $route['action']['middleware'] ?? [];
         $routerDispatch = $route['action']['uses'];
@@ -135,7 +135,6 @@ class Route
                 return $controllerInstance->callAction($method, [$request]);
             };
         }
-
         return Container::getContainer()->get('pipeline')->create()->setClass(
             $middleware
         )->run($routerDispatch)($request);

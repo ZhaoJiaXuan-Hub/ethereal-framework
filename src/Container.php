@@ -1,4 +1,5 @@
 <?php
+
 namespace Ethereal;
 
 use Ethereal\log\Logger;
@@ -25,12 +26,12 @@ class Container implements ContainerInterface
     public function get(string $abstract)
     {
         // 服务已经实例化
-        if (isset($this->instances[$abstract])){
+        if (isset($this->instances[$abstract])) {
             return $this->instances[$abstract];
         }
         $instance = $this->binding[$abstract]['concrete']($this);
         // 设置为单例
-        if ($this->binding[$abstract]['is_singleton']){
+        if ($this->binding[$abstract]['is_singleton']) {
             $this->instances[$abstract] = $instance;
         }
         return $instance;
@@ -48,14 +49,15 @@ class Container implements ContainerInterface
 
     public function bind(string $abstract, $concrete, bool $is_singleton = false)
     {
-        if (!$concrete instanceof  \Closure)
-            $concrete = function ($app) use ($concrete){
+        if (!$concrete instanceof \Closure)
+            $concrete = function ($app) use ($concrete) {
                 return $app->build($concrete);
             };
-        $this->binding[$abstract] = compact('concrete','is_singleton');
+        $this->binding[$abstract] = compact('concrete', 'is_singleton');
     }
 
-    protected function getDependencies($parameters){
+    protected function getDependencies($parameters)
+    {
         // 当前对象所有依赖
         $dependencies = [];
         foreach ($parameters as $parameter)
@@ -64,7 +66,8 @@ class Container implements ContainerInterface
         return $dependencies;
     }
 
-    public function build($concrete){
+    public function build($concrete)
+    {
         // 反射
         $reflector = new \ReflectionClass($concrete);
         // 获取构造函数
@@ -83,14 +86,14 @@ class Container implements ContainerInterface
     {
         $registers = [
             'response' => \Ethereal\http\Response::class,
-            'resquest' => \Ethereal\http\Resquest::class,
+            'resquest' => \Ethereal\http\Request::class,
             'route' => \Ethereal\Route::class,
             'config' => \Ethereal\Config::class,
             'database' => \Ethereal\Database::class,
             'pipeline' => \Ethereal\PipeLine::class,
-            'config'    =>  \Ethereal\Config::class,
-            ViewInterface::class    =>  ThinkTemplate::class,
-            'log'   =>  \Ethereal\log\Logger::class,
+            'config' => \Ethereal\Config::class,
+            ViewInterface::class => ThinkTemplate::class,
+            'log' => \Ethereal\log\Logger::class,
             'exception' => \App\exceptions\HandleExceptions::class
         ];
         foreach ($registers as $name => $concrete)
@@ -103,10 +106,13 @@ class Container implements ContainerInterface
         $container->get('config')->init();
         $container->get('exception')->init();
         $container->get(ViewInterface::class)->init();
-        $container->get('database')->connect($container->get('config')->get('database'));
+        var_dump(PHP_VERSION_ID);
+        $config = $container->get('config')->get('database.mysql');
+        if(!empty($config['database']) && !empty($config['username']) && !empty($config['password']) && !empty($config['host']))
+            $container->get('database')->connect($config);
         $container->get('route')->group([
             'namespace' => 'App\\controller'
-        ], function ($router){
+        ], function ($router) {
             require_once BASE_PATH . '/route/app.php';
         });
     }

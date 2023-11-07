@@ -11,7 +11,8 @@ class Controller
         return $this->middleware;
     }
 
-    public function callAction($method,$parameters){
-        return call_user_func_array([$this,$method],$parameters);
+    public function callAction($method, $parameters)
+    {
+        return call_user_func_array([$this, $method], $parameters);
     }
 }
