@@ -2,9 +2,7 @@
   "name": "zhaojiaxuan/ethereal-framework",
   "description": "Ethereal Framework",
   "type": "library",
-  "version": "1.0.1",
   "license": "MIT",
-  "minimum-stability": "dev",
   "require": {
     "php": ">=8.0.0",
     "psr/container": "^2.0",
