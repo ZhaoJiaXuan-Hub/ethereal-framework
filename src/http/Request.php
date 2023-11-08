@@ -7,17 +7,21 @@ class Request implements RequestInterface
     protected $uri;
     protected $method;
     protected $headers;
+    protected $get;
+    protected $post;
 
-    public function __construct($uri, $method, $headers)
+    public function __construct($uri, $method, $headers,$get,$post)
     {
         $this->uri = $uri;
         $this->method = $method;
         $this->headers = $headers;
+        $this->get = $get;
+        $this->post = $post;
     }
 
-    public static function create($uri, $method, $headers)
+    public static function create($uri, $method, $headers,$get,$post)
     {
-        return new static($uri, $method, $headers);
+        return new static($uri, $method, $headers,$get,$post);
     }
 
     public function getUri()
@@ -45,13 +49,12 @@ class Request implements RequestInterface
 
     public function get()
     {
-        return $_GET;
+        return $this->get;
     }
 
     public function post()
     {
-        parse_str(file_get_contents('php://input'), $params);
-        return $_POST + $params;
+        return $this->post;
     }
 
     public function all()

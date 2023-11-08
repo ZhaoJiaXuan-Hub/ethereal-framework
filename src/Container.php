@@ -106,7 +106,6 @@ class Container implements ContainerInterface
         $container->get('config')->init();
         $container->get('exception')->init();
         $container->get(ViewInterface::class)->init();
-        var_dump(PHP_VERSION_ID);
         $config = $container->get('config')->get('database.mysql');
         if(!empty($config['database']) && !empty($config['username']) && !empty($config['password']) && !empty($config['host']))
             $container->get('database')->connect($config);

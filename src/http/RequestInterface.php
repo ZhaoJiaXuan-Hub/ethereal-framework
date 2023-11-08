@@ -9,17 +9,21 @@ interface RequestInterface
      * @param $uri
      * @param $method
      * @param $headers
+     * @param $get
+     * @param $post
      */
-    public function __construct($uri, $method, $headers);
+    public function __construct($uri, $method, $headers,$get,$post);
 
     /**
-     * 创建Request对象
+     * 创建对象
      * @param $uri
      * @param $method
      * @param $headers
+     * @param $get
+     * @param $post
      * @return mixed
      */
-    public static function create($uri, $method, $headers);
+    public static function create($uri, $method, $headers,$get,$post);
 
     /**
      * 获取请求url
